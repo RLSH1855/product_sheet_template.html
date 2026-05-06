@@ -1,1 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>OEM Running Boards Template — Updated</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#111111;
+    --muted:#777777;
+    --light:#e9e9e9;
+    --page-padding:22px;
+    --max-width:980px;
+  }
+  html,body{height:100%;margin:0;background:#fff;font-family:"Inter",system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--accent);}
+  .container{max-width:var(--max-width);margin:18px auto;padding:var(--page-padding);box-sizing:border-box;}
+  /* Typography preset 2 (Balanced) */
+  .title{font-family:"Montserrat",sans-serif;font-weight:700;font-size:22pt;letter-spacing:0.8px;text-align:center;margin:0 0 8px 0;}
+  .section-heading{font-family:"Montserrat",sans-serif;font-weight:700;font-size:14pt;letter-spacing:0.5px;margin:10px 0 6px 0;color:var(--accent);}
+  .body-text{font-family:"Inter",sans-serif;font-weight:400;font-size:11.5pt;letter-spacing:0.25px;line-height:1.15;color:#222;}
+  .label{font-family:"Inter",sans-serif;font-weight:600;font-size:11pt;color:var(--accent);display:block;margin-top:6px;}
+  hr.light{border:0;border-bottom:1px solid var(--light);margin:8px 0 14px 0;}
+  /* Top bar */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;}
+  .logo-box{width:160px;height:56px;border:1px dashed var(--light);display:flex;align-items:center;justify-content:center;background:#fff;position:relative;overflow:hidden;}
+  .logo-box img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+  .company-block{min-width:220px;padding:6px 8px;border-radius:4px;}
+  .company-block .company-line{font-family:"Inter",sans-serif;font-size:11pt;color:#222;}
+  .controls{display:flex;gap:8px;align-items:center;}
+  .bg-toggle{padding:6px 8px;border:1px solid var(--light);background:#fff;border-radius:6px;cursor:pointer;font-size:12px;}
+  /* Main layout */
+  .main{display:flex;gap:18px;margin-top:6px;}
+  .col-left{flex:0 0 44%;min-width:260px;}
+  .col-right{flex:1;min-width:340px;}
+  .placeholder{border:2px dashed var(--light);background:#fafafa;height:240px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-style:italic;position:relative;overflow:hidden;}
+  .small-placeholder{border:2px dashed var(--light);background:#fafafa;height:120px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-style:italic;position:relative;overflow:hidden;}
+  .image-row{display:flex;gap:12px;margin-top:12px;}
+  .editable{outline:none;}
+  .bottom{margin-top:16px;}
+  .features{margin:6px 0 12px 18px;color:#222;}
+  .controls-file{position:absolute;right:6px;top:6px;opacity:0.95;}
+  .controls-file input[type=file]{display:none;}
+  .note{font-size:10pt;color:var(--muted);margin-top:8px;}
+  .filled{width:100%;height:100%;object-fit:cover;display:block;}
+  /* Dark background variant */
+  .bg-dark{background:#111;color:#fff;}
+  .bg-dark .placeholder,.bg-dark .small-placeholder{background:#1a1a1a;border-color:#333;color:#bbb;}
+  .bg-dark .logo-box{background:#111;}
+  @media (max-width:820px){ .main{flex-direction:column;} .col-left,.col-right{width:100%;} .placeholder{height:200px;} }
+</style>
+</head>
+<body>
+<div class="container" id="page">
+  <!-- Top bar: logos + title + company -->
+  <div class="topbar">
+    <div style="display:flex;gap:12px;align-items:center;">
+      <div class="logo-box" id="logoLight" ondragover="event.preventDefault()" ondrop="handleDrop(event,'logoLight')">
+        <div style="text-align:center;color:var(--muted);font-size:12px;">Upload black logo</div>
+        <div class="controls-file" style="position:absolute;right:6px;top:6px;">
+          <label title="Upload black logo"><input type="file" accept="image/*" onchange="handleFile(event,'logoLight')" /></label>
+        </div>
+      </div>
+      <div class="logo-box" id="logoDark" ondragover="event.preventDefault()" ondrop="handleDrop(event,'logoDark')" style="display:none;">
+        <div style="text-align:center;color:#ddd;font-size:12px;">Upload white logo</div>
+        <div class="controls-file" style="position:absolute;right:6px;top:6px;">
+          <label title="Upload white logo"><input type="file" accept="image/*" onchange="handleFile(event,'logoDark')" /></label>
+        </div>
+      </div>
+    </div>
 
+    <div style="flex:1;text-align:center;">
+      <div class="title" contenteditable="true" id="title">PRODUCT NAME / PART NAME</div>
+    </div>
+
+    <div class="company-block" id="companyBlock">
+      <div class="company-line" contenteditable="true" id="companyName"><strong>Company Name:</strong> Your Company</div>
+      <div class="company-line" contenteditable="true" id="salesperson"><strong>Salesperson:</strong> Your Name</div>
+      <div class="company-line" contenteditable="true" id="phone"><strong>Phone:</strong> 555-123-4567</div>
+      <div class="company-line" contenteditable="true" id="email"><strong>Email:</strong> sales@example.com</div>
+    </div>
+  </div>
+
+  <hr class="light">
+
+  <!-- Main two-column area -->
+  <div class="main">
+    <div class="col-left">
+      <div class="section-heading">PRODUCT INFORMATION</div>
+
+      <div><span class="label">Part Number</span><div class="body-text editable" contenteditable="true" id="partNumber">RB-</div></div>
+      <div><span class="label">Brand / Manufacturer</span><div class="body-text editable" contenteditable="true" id="brand">ExampleBrand</div></div>
+      <div><span class="label">Category</span><div class="body-text editable" contenteditable="true" id="category">Running Boards / Step Bars</div></div>
+      <div><span class="label">Finish</span><div class="body-text editable" contenteditable="true" id="finish">Black Powder Coat</div></div>
+      <div><span class="label">Material</span><div class="body-text editable" contenteditable="true" id="material">Aluminum</div></div>
+      <div><span class="label">Weight Capacity</span><div class="body-text editable" contenteditable="true" id="weight">300 lb per step</div></div>
+
+      <div class="section-heading">VEHICLE FITMENT</div>
+      <div class="body-text editable" contenteditable="true" id="fitment">Year: 2018–2024<br>Make: Ford<br>Model: F150<br>Cab Size: Crew Cab</div>
+
+      <div class="section-heading">KEY FEATURES</div>
+      <ul class="features editable" contenteditable="true" id="features">
+        <li>OEM fitment; no drilling required</li>
+        <li>Anti-slip textured step surface</li>
+        <li>Includes mounting brackets and hardware</li>
+      </ul>
+    </div>
+
+    <div class="col-right">
+      <div class="section-heading">IMAGE 1 — HERO</div>
+      <div class="placeholder" id="hero" ondragover="event.preventDefault()" ondrop="handleDrop(event,'hero')">
+        <div>Image 1 — Drag image here</div>
+        <div class="controls-file" style="position:absolute;right:6px;top:6px;">
+          <label title="Upload hero image"><input type="file" accept="image/*" onchange="handleFile(event,'hero')" /></label>
+        </div>
+      </div>
+
+      <div class="image-row">
+        <div style="flex:1">
+          <div class="section-heading" style="font-size:12pt;margin-top:10px;">IMAGE 2</div>
+          <div class="small-placeholder" id="img2" ondragover="event.preventDefault()" ondrop="handleDrop(event,'img2')">
+            <div>Image 2 — Drag image here</div>
+            <div class="controls-file" style="position:absolute;right:6px;top:6px;">
+              <label title="Upload image 2"><input type="file" accept="image/*" onchange="handleFile(event,'img2')" /></label>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div class="section-heading" style="font-size:12pt;margin-top:10px;">IMAGE 3</div>
+          <div class="small-placeholder" id="img3" ondragover="event.preventDefault()" ondrop="handleDrop(event,'img3')">
+            <div>Image 3 — Drag image here</div>
+            <div class="controls-file" style="position:absolute;right:6px;top:6px;">
+              <label title="Upload image 3"><input type="file" accept="image/*" onchange="handleFile(event,'img3')" /></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom full-width blocks -->
+  <div class="bottom">
+    <div class="section-heading">DESCRIPTION</div>
+    <div class="body-text editable" contenteditable="true" id="description">Paste product description here. Include construction, mounting style, included hardware, installation notes, warranty information.</div>
+
+    <div class="section-heading">PRICING & AVAILABILITY</div>
+    <div class="body-text editable" contenteditable="true" id="pricing"><strong>Price:</strong> $<span contenteditable="true">349.99</span> per set<br><strong>Availability:</strong> In stock; ships in 1–2 business days</div>
+  </div>
+
+  <div class="note">Tip: Click any placeholder to upload or drag an image from your computer onto a placeholder. Double‑click the title or any field to edit text.</div>
+</div>
+
+<script>
+  // File handlers for placeholders and logos
+  function handleFile(e,id){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){ setImage(ev.target.result,id); };
+    reader.readAsDataURL(file);
+  }
+
+  function handleDrop(e,id){
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){ setImage(ev.target.result,id); };
+    reader.readAsDataURL(file);
+  }
+
+  function setImage(dataUrl,id){
+    const container = document.getElementById(id);
+    if(!container) return;
+    container.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    img.className = 'filled';
+    container.appendChild(img);
+
+    // remove button
+    const btn = document.createElement('button');
+    btn.textContent = 'Remove';
+    btn.style.position = 'absolute';
+    btn.style.right = '6px';
+    btn.style.top = '6px';
+    btn.style.fontSize = '11px';
+    btn.style.padding = '4px 6px';
+    btn.style.background = '#fff';
+    btn.style.border = '1px solid #ddd';
+    btn.style.cursor = 'pointer';
+    btn.onclick = function(ev){ ev.stopPropagation(); resetPlaceholder(container,id); };
+    container.appendChild(btn);
+
+    // if logo uploaded, update visibility logic
+    if(id === 'logoLight' || id === 'logoDark') updateLogoVisibility();
+  }
+
+  function resetPlaceholder(container,id){
+    container.innerHTML = '<div>' + (id==='hero' ? 'Image 1 — Drag image here' : (id==='img2' ? 'Image 2 — Drag image here' : (id==='img3' ? 'Image 3 — Drag image here' : (id==='logoLight' ? 'Upload black logo' : 'Upload white logo')))) + '</div>';
+    const label = document.createElement('div');
+    label.className = 'controls-file';
+    label.innerHTML = '<label title="Upload"><input type="file" accept="image/*" onchange="handleFile(event,\''+id+'\')" /></label>';
+    container.appendChild(label);
+    if(id === 'logoLight' || id === 'logoDark') updateLogoVisibility();
+  }
+
+  // Background toggle and logo visibility helpers (keeps logos contrasting)
+  function setBackground(mode){
+    const page = document.getElementById('page');
+    if(mode === 'dark'){ page.classList.add('bg-dark'); document.body.style.background='#111'; }
+    else { page.classList.remove('bg-dark'); document.body.style.background='#fff'; }
+    updateLogoVisibility();
+  }
+
+  function updateLogoVisibility(){
+    const page = document.getElementById('page');
+    const isDark = page.classList.contains('bg-dark');
+    const logoLight = document.getElementById('logoLight');
+    const logoDark = document.getElementById('logoDark');
+    const hasLight = !!logoLight.querySelector('img');
+    const hasDark = !!logoDark.querySelector('img');
+
+    if(isDark){
+      if(hasDark){ logoDark.style.display='flex'; logoLight.style.display='none'; }
+      else if(hasLight){ logoLight.style.display='flex'; logoDark.style.display='none'; }
+      else { logoDark.style.display='flex'; logoLight.style.display='none'; }
+    } else {
+      if(hasLight){ logoLight.style.display='flex'; logoDark.style.display='none'; }
+      else if(hasDark){ logoDark.style.display='flex'; logoLight.style.display='none'; }
+      else { logoLight.style.display='flex'; logoDark.style.display='none'; }
+    }
+  }
+
+  // ensure file inputs exist
+  ['logoLight','logoDark','hero','img2','img3'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(!el.querySelector('input[type=file]')){
+      const label = document.createElement('div');
+      label.className = 'controls-file';
+      label.innerHTML = '<label title="Upload"><input type="file" accept="image/*" onchange="handleFile(event,\''+id+'\')" /></label>';
+      el.appendChild(label);
+    }
+  });
+
+  // default background
+  setBackground('light');
+</script>
+</body>
+</html>
